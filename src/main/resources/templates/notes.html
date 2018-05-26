@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Notes</title>
+</head>
+<body>
+
+<div style="float: right">
+    <div sec:authorize="authenticated">
+        Logged user: <span sec:authentication="name">Josh</span> |
+        Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span> |
+        <form th:action="@{/logout}" method="post" style="display:inline"><input type="submit" value="Logout"/></form>
+    </div>
+    <div sec:authorize="not authenticated">
+        <a href="#" th:href="@{/login}">Login</a> |
+        <a href="#" th:href="@{/register}">Register</a>
+    </div>
+</div>
+
+<div>
+    <h1>Notes</h1>
+</div>
+
+<table border="1" cellpadding="4" cellspacing="4">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Date</th>
+        <th>Text</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--/*@thymesVar id="notes" type="philip.notes.note.Note[]"*/-->
+    <tr th:each="note:${notes}">
+        <td th:text="${note.noteId}"></td>
+        <td th:text="${note.created}"></td>
+        <td th:text="${note.text}"></td>
+        <td><a href="#" th:href="@{/notes/__${note.noteId}__/remove}">Remove</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <h2>Create new note</h2>
+</div>
+<!--/*@thymesVar id="newNote" type="philip.notes.note.Note"*/-->
+<form method="post" th:action="@{/notes/create}" th:object="${newNote}">
+    <label for="newNote">Text:</label>
+    <input id="newNote" type="text" th:field="*{text}"/>
+    <input type="submit" value="Create"/>
+</form>
+</body>
+</html>
