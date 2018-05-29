@@ -20,10 +20,10 @@ import java.util.Map;
 @AllArgsConstructor
 public class MainController {
 
-    private static final String VIEWS_HOME = "/notes";
-    private static final String VIEWS_REGISTRATION = "/register";
-    private static final String VIEWS_LOGIN = "/login";
-    private static final String VIEWS_REDIRECT_HOME = "redirect:" + VIEWS_HOME;
+    private static final String VIEWS_HOME = "notes.html";
+    private static final String VIEWS_REGISTRATION = "register.html";
+    private static final String VIEWS_LOGIN = "login.html";
+    private static final String VIEWS_REDIRECT_HOME = "redirect:/";
     private final UserService userService;
     private final NoteService noteService;
 
